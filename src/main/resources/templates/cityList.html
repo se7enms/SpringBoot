@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>se7en_ms</title>
+</head>
+
+<body>
+
+<div class="contentDiv">
+    <table class="table table-hover table-condensed">
+        <thead>
+        <tr>
+            <th colspan="5" style="text-align: center;">城市列表</th>
+        </tr>
+        <tr>
+            <th>编号</th>
+            <th>省份编号</th>
+            <th>城市名</th>
+            <th>描述</th>
+            <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="city : ${cityList}">
+            <td th:text="${city.id}"></td>
+            <td th:text="${city.provinceId}"></td>
+            <td th:text="${city.cityName}"></td>
+            <td th:text="${city.description}"></td>
+            <td><a class="btn btn-danger" th:href="@{/book/delete/{bookId}(bookId=${city.id})}">删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div><a class="btn btn-primary" href="/city/create" role="button">新增书籍</a></div>
+</div>
+
+</body>
+</html>
