@@ -3,7 +3,7 @@
 <mapper namespace="com.ms.springboot.dao.CityDao">
     <resultMap id="BaseResultMap" type="com.ms.springboot.domain.City">
         <result column="id" property="id" />
-        <result column="province_id" property="provinceId" />
+        <result column="province_Name" property="provinceName" />
         <result column="city_name" property="cityName" />
         <result column="description" property="description" />
     </resultMap>
@@ -11,19 +11,29 @@
     <parameterMap id="City" type="com.ms.springboot.domain.City"/>
 
     <sql id="Base_Column_List">
-		id, province_id, city_name, description
+		id, province_Name, city_name, description
 	</sql>
 
     <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
-          id, province_id, city_name, description
+          id, province_Name, city_name, description
         from city
         where city_name = #{cityName}
     </select>
 
     <select id="findAllCity" resultMap="BaseResultMap">
         select
-          id, province_id, city_name, description
+          id, province_Name, city_name, description
         from city
     </select>
+
+    <delete id="deleteCityName" parameterType="java.lang.String">
+        delete from city where id = #{id}
+    </delete>
+    
+    <insert id="saveCity" parameterType="City">
+        insert into city (province_Name, city_name, description)
+        values
+        (#{provinceName}, #{cityName}, #{description})
+    </insert>
 </mapper>

@@ -11,12 +11,12 @@ public class City {
     /**
      * 城市编号
      */
-    private Long id;
+    private String id;
 
     /**
-     * 省份编号
+     * 省份名称
      */
-    private Long provinceId;
+    private String provinceName;
 
     /**
      * 城市名称
@@ -28,20 +28,20 @@ public class City {
      */
     private String description;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getProvinceId() {
-        return provinceId;
+    public String getProvinceName() {
+        return provinceName;
     }
 
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
     }
 
     public String getCityName() {

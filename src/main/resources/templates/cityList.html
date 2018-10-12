@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
-    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
     <meta charset="UTF-8"/>
     <title>三时</title>
 
     <style>
-        .center{
-            text-align-last: center;
-        }
-
+        .center{text-align-last: center; }
+        .contentDiv {padding:20px 60px;}
     </style>
 
 </head>
 
 <body>
+    <div class="contentDiv">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th colspan="5" style="text-align-last: center;font-weight: 900;font-size: larger;">城市列表</th>
+            </tr>
+            <tr>
+                <th style="text-align-last: center;width: 5%;">序号</th>
+                <th style="text-align-last: center;width: 25%;">省份</th>
+                <th style="text-align-last: center;width: 25%;">城市</th>
+                <th style="text-align-last: center;width: 35%;">描述</th>
+                <th style="text-align-last: center;width: 10%;">管理</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="city,cityStat : ${cityList}">
+                <td class="center" th:text="${cityStat.index+1}"></td>
+                <td class="center" th:text="${city.provinceName}"></td>
+                <td class="center" th:text="${city.cityName}"></td>
+                <td class="center" th:text="${city.description}"></td>
+                <td class="center" ><input class="btn btn-danger btn-sm" type="button" value="删除" th:onclick="'javascript:delCity('+${city.id}+');'"></td>
+            </tr>
+            </tbody>
+        </table>
 
-<div class="contentDiv">
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-        <tr>
-            <th colspan="5" style="text-align-last: center;font-weight: 900;font-size: larger;">城市列表</th>
-        </tr>
-        <tr>
-            <th style="text-align-last: center;width: 5%;">编号</th>
-            <th style="text-align-last: center;width: 20%;">省份</th>
-            <th style="text-align-last: center;width: 20%;">城市</th>
-            <th style="text-align-last: center;width: 30%;">描述</th>
-            <th style="text-align-last: center;width: 15%;">管理</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="city : ${cityList}">
-            <td class="center" th:text="${city.id}"></td>
-            <td class="center" th:text="${city.provinceId}"></td>
-            <td class="center" th:text="${city.cityName}"></td>
-            <td class="center" th:text="${city.description}"></td>
-            <td class="center" ><a class="btn btn-danger btn-sm" th:href="@{/book/delete/{bookId}(bookId=${city.id})}">删除</a></td>
-        </tr>
-        </tbody>
-    </table>
-
-    <div ><a class="btn btn-primary" href="/index/create" role="button">新增城市</a></div>
-</div>
+        <div><input class="btn btn-primary btn-sm" type="button" value="新增城市" onclick="addCity();"></div>
+    </div>
 
 </body>
+<script th:src="@{/vendor/jquery/jquery.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootbox.js}"></script>
+<script type="text/javascript">
+    function addCity() {
+        bootbox.alert('Hi Apple!');
+    }
+
+    function delCity(ID) {
+        bootbox.confirm("确认删除吗?", function(result) {
+            if(result) {
+                window.location.href="/index/delCity/"+ID;
+            }
+        });
+    }
+</script>
+
 </html>

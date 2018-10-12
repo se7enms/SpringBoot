@@ -13,7 +13,14 @@ import java.util.List;
 
 public interface CityService {
     /**
-     * 根据城市名称，查询城市信息
+     * 获取所有城市信息
+     * @return null
+     * @throws Exception error
+     */
+    List<City> findAllCity() throws Exception;
+
+    /**
+     * 根据城市名称，查询
      * @param cityName 城市名
      * @return null
      * @throws Exception error
@@ -21,9 +28,17 @@ public interface CityService {
     City findCityByName(String cityName) throws Exception;
 
     /**
-     * 获取所有城市信息
-     * @return null
+     * 新增省份城市信息
+     * @param city 城市名
      * @throws Exception error
      */
-    List<City> findAllCity() throws Exception;
+    void saveCityName(City city) throws Exception;
+
+    /**
+     * 删除对应省市信息
+     * @param ID 序列编号
+     * @throws Exception error
+     */
+    void  deleteCityName(String ID) throws Exception;
+
 }
