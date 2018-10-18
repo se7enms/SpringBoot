@@ -8,17 +8,11 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <parameterMap id="City" type="com.ms.springboot.domain.City"/>
-
-    <sql id="Base_Column_List">
-		id, province_Name, city_name, description
-	</sql>
-
-    <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="findByName" resultMap="BaseResultMap" parameterType="Map">
         select
-          id, province_Name, city_name, description
+          province_Name, city_name, description
         from city
-        where city_name = #{cityName}
+        where id = #{ID}
     </select>
 
     <select id="findAllCity" resultMap="BaseResultMap">
@@ -31,9 +25,18 @@
         delete from city where id = #{id}
     </delete>
     
-    <insert id="saveCity" parameterType="City">
-        insert into city (province_Name, city_name, description)
+    <insert id="saveCity" parameterType="Map">
+        insert into city
+          (province_Name, city_name, description)
         values
         (#{provinceName}, #{cityName}, #{description})
     </insert>
+
+    <update id="updateCity" parameterType="Map">
+        update city set
+          province_Name = #{provinceName},
+          city_name = #{cityName},
+          description = #{description}
+        where id = #{ID}
+    </update>
 </mapper>

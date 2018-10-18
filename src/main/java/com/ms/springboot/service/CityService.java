@@ -3,6 +3,7 @@ package com.ms.springboot.service;
 import com.ms.springboot.domain.City;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 业务逻辑接口类
@@ -21,18 +22,25 @@ public interface CityService {
 
     /**
      * 根据城市名称，查询
-     * @param cityName 城市名
+     * @param cityID ID
      * @return null
      * @throws Exception error
      */
-    City findCityByName(String cityName) throws Exception;
+    City findCityByName(Map cityID) throws Exception;
 
     /**
-     * 新增省份城市信息
+     * 新增/更新省份城市信息
      * @param city 城市名
      * @throws Exception error
      */
-    void saveCityName(City city) throws Exception;
+    void saveCityName(Map city) throws Exception;
+
+    /**
+     * 新增/更新省份城市信息
+     * @param city 城市名
+     * @throws Exception error
+     */
+    void updateCity(Map city) throws Exception;
 
     /**
      * 删除对应省市信息

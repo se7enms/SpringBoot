@@ -2,6 +2,7 @@
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/vendor/drag/style.css}" rel="stylesheet"/>
     <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
     <meta charset="UTF-8"/>
     <title>三时</title>
@@ -10,8 +11,8 @@
         .center{text-align-last: center; }
         .contentDiv {padding:20px 60px;}
     </style>
-
 </head>
+<base href="<%=basePath%>">
 
 <body>
     <div class="contentDiv">
@@ -34,7 +35,10 @@
                 <td class="center" th:text="${city.provinceName}"></td>
                 <td class="center" th:text="${city.cityName}"></td>
                 <td class="center" th:text="${city.description}"></td>
-                <td class="center" ><input class="btn btn-danger btn-sm" type="button" value="删除" th:onclick="'javascript:delCity('+${city.id}+');'"></td>
+                <td class="center" >
+                    <button type="button" class="btn btn-primary btn-sm" th:onclick="'javascript:updateCity('+${city.id}+');'">编辑</button>
+                    <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:delCity('+${city.id}+');'">删除</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -46,9 +50,33 @@
 <script th:src="@{/vendor/jquery/jquery.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootbox.js}"></script>
+<script th:src="@{/vendor/drag/dialog.js}"></script>
 <script type="text/javascript">
+
     function addCity() {
-        bootbox.alert('Hi Apple!');
+        var diag = new top.Dialog();
+        diag.Drag=true;
+        diag.Title ="城市信息";
+        diag.URL = '/index/toAddCity?state='+"add";
+        diag.Width = 400;
+        diag.Height =260;
+        diag.CancelEvent = function(){ //关闭事件
+            diag.close();
+        };
+        diag.show();
+    }
+
+    function updateCity(ID) {
+        var diag = new top.Dialog();
+        diag.Drag=true;
+        diag.Title ="城市信息";
+        diag.URL = '/index/toAddCity?ID='+ID+'&state='+"update";
+        diag.Width = 400;
+        diag.Height =260;
+        diag.CancelEvent = function(){ //关闭事件
+            diag.close();
+        };
+        diag.show();
     }
 
     function delCity(ID) {

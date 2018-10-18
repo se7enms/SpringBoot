@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 业务逻辑实现类
@@ -22,12 +23,12 @@ public class CityServiceImpl implements CityService {
 
     /**
      * 根据城市名称，查询城市信息
-     * @param cityName 城市名
+     * @param cityID ID
      * @return 城市名
      */
     @Override
-    public City findCityByName(String cityName) {
-        return cityDao.findByName(cityName);
+    public City findCityByName(Map cityID) {
+        return cityDao.findByName(cityID);
     }
 
     /**
@@ -35,8 +36,17 @@ public class CityServiceImpl implements CityService {
      * @param city 城市名
      */
     @Override
-    public void saveCityName(City city) throws Exception {
+    public void saveCityName(Map city) {
         cityDao.saveCity(city);
+    }
+
+    /**
+     * 更新省市信息
+     * @param city 城市名
+     */
+    @Override
+    public void updateCity(Map city) {
+        cityDao.updateCity(city);
     }
 
     /**
@@ -44,7 +54,7 @@ public class CityServiceImpl implements CityService {
      * @param ID 数据ID
      */
     @Override
-    public void deleteCityName(String ID) throws Exception {
+    public void deleteCityName(String ID) {
         cityDao.deleteCityName(ID);
     }
 

@@ -1,58 +1,66 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
-    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/css/default.css}" rel="stylesheet"/>
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8"/>
-    <title>书籍管理</title>
+    <title>三时</title>
+
+    <style>
+        .center{width: 79px;text-align: right;}
+    </style>
 </head>
-
 <body>
-<div class="contentDiv">
-
-    <h5>《Spring Boot 2.x 核心技术实战 - 上 基础篇》第 4 章《模板引擎》Demo </h5>
-
-    <legend>
-        <strong>书籍管理</strong>
-    </legend>
-
-    <form th:action="@{/book/{action}(action=${action})}" method="post" class="form-horizontal">
-
-        <input type="hidden" name="id" th:value="${book.id}"/>
-
-        <div class="form-group">
-            <label for="book_name" class="col-sm-2 control-label">书名:</label>
-            <div class="col-xs-4">
-                <input type="text" class="form-control" id="book_name" name="name" th:value="${book.name}"
-                       th:field="*{book.name}"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="book_writer" class="col-sm-2 control-label">作者:</label>
-            <div class="col-xs-4">
-                <input type="text" class="form-control" id="book_writer" name="writer" th:value="${book.writer}"
-                       th:field="*{book.writer}"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="book_introduction" class="col-sm-2 control-label">简介:</label>
-            <div class="col-xs-4">
-                <textarea class="form-control" id="book_introduction" rows="3" name="introduction"
-                          th:value="${book.introduction}" th:field="*{book.introduction}"></textarea>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <input class="btn btn-primary" type="submit" value="提交"/>&nbsp;&nbsp;
-                <input class="btn" type="button" value="返回" onclick="history.back()"/>
-            </div>
+<div class="col-xs-12">
+    <form id="cityInfo" action="#" method="post" class="form-horizontal">
+        <div style="padding-top: 13px;">
+            <input name="state" th:value="${action}" type="hidden">
+            <input name="ID" th:value="${ID}" type="hidden">
+            <table class="table table-striped table-bordered table-hover">
+                <tbody>
+                <tr>
+                    <td class="center">省份:</td>
+                    <td><input type="text" th:value="${cityInfo?.provinceName}" name="provinceName" placeholder="这里输入省份名" style="width:98%;"/></td>
+                </tr>
+                <tr>
+                    <td class="center">城市:</td>
+                    <td><input type="text" th:value="${cityInfo?.cityName}" name="cityName" placeholder="这里输入城市名" style="width:98%;"/></td>
+                </tr>
+                <tr>
+                    <td class="center">描述:</td>
+                    <td><input type="text" th:value="${cityInfo?.description}" name="description" placeholder="这里输入描述" style="width:98%;"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;" colspan="4">
+                        <button type="button" class="btn btn-success btn-sm" onclick="save();">保存</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="top.Dialog.close();">取消</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </form>
 </div>
 </body>
+<script th:src="@{/vendor/jquery/jquery.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootbox.js}"></script>
+<script type="text/javascript" th:inline="JavaScript">
+    //ajax返回后刷新父级页面
+    function save() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: false,
+            url: '/index/addCity',
+            data: $('#cityInfo').serialize(),
+            success: function () {
+                window.parent.location.reload();
+            },
+            error : function() {
+                bootbox.alert("保存失败！");
+            }
+        });
+        top.Dialog.close();
+    }
+</script>
 </html>

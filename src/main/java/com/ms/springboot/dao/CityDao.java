@@ -1,10 +1,10 @@
 package com.ms.springboot.dao;
 
 import com.ms.springboot.domain.City;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * dao接口类
@@ -16,10 +16,10 @@ import java.util.List;
 public interface CityDao {
     /**
      * 根据城市名称，查询城市信息
-     * @param cityName 城市名
+     * @param cityID 城市ID
      * @return null
      */
-    City findByName(@Param("cityName") String cityName);
+    City findByName(Map cityID);
 
     /**
      * 查找所有城市信息
@@ -31,11 +31,17 @@ public interface CityDao {
      * 新增省市信息
      * @param city 城市名
      */
-    void saveCity(City city);
+    void saveCity(Map city);
 
     /**
      * 删除城市信息
      * @param id 数据ID
      */
     void deleteCityName(String id);
+
+    /**
+     * 更新城市信息
+     * @param city 信息
+     */
+    void updateCity(Map city);
 }
