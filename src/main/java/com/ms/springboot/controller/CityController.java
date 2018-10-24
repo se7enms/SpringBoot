@@ -33,7 +33,7 @@ public class CityController {
 
     /**
      * 查询所有城市
-     * @return html
+     * @return html 城市信息页面
      * @throws Exception error
      */
     @RequestMapping(value = "/city")
