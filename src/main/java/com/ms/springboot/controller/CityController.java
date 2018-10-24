@@ -58,10 +58,10 @@ public class CityController {
             model.addAttribute("action", "addCity");
         } else if (updateValue.equals(state)) {
             //获取编辑城市的信息
-            String ID = request.getParameter("ID");
-            map.put("ID",ID);
+            String cityID = request.getParameter("ID");
+            map.put("ID",cityID);
             model.addAttribute("cityInfo", cityService.findCityByName(map));
-            model.addAttribute("ID", ID);
+            model.addAttribute("ID", cityID);
             model.addAttribute("action", "updateCity");
         }
         return CITY_FORM_PATH_NAME;
