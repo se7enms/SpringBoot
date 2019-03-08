@@ -62,5 +62,12 @@
         });
         top.Dialog.close();
     }
+
+    //敲回车提交表单，回车键的键值为13
+    window.onkeydown = function(){
+        if (event.keyCode === 13){
+            save();
+        }
+    }
 </script>
 </html>
