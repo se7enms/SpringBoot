@@ -25,11 +25,15 @@ import java.util.Map;
 @RequestMapping(value = "/index")
 public class CityController {
 
-    @Autowired
-    private CityService cityService;
+    private final CityService cityService;
 
     private static final String CITY_LIST_PATH_NAME = "cityList";
     private static final String CITY_FORM_PATH_NAME = "cityForm";
+
+    @Autowired
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
+    }
 
     /**
      * 查询所有城市
